@@ -14,5 +14,4 @@ const createTag = new createTagController()
 routes.post('/users', createUser.handle)
 routes.post('/tags', ensureAdmin, createTag.handle)
 
-
 export { routes }
