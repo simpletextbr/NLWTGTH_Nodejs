@@ -46,6 +46,30 @@ export default {
             }
           }
         }
+      },
+      get: {
+        summary : "List all users",
+        description: "Create a new user",
+        tags:["Users"],
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        responses: {
+        "200": {
+            description: "successful operation",
+            schema: {
+                type: "array",
+                items: {
+                    $ref: "#/definitions/User"
+                }
+            }
+        },
+        "400": {
+            description: "Invalid status value",
+            schema: {
+                $ref: "#/definitions/error"
+            }
+          }
+        }
       }
     },
     '/tags':{
@@ -74,6 +98,30 @@ export default {
                 type: "array",
                 items: {
                     $ref: "#/definitions/successNewTag"
+                }
+            }
+        },
+        "400": {
+            description: "Invalid status value",
+            schema: {
+                $ref: "#/definitions/error"
+            }
+          }
+        }
+      },
+      get: {
+        summary : "List all tags",
+        description: "Create a new user",
+        tags:["tags"],
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        responses: {
+        "200": {
+            description: "successful operation",
+            schema: {
+                type: "array",
+                items: {
+                    $ref: "#/definitions/Tags"
                 }
             }
         },
@@ -161,6 +209,58 @@ export default {
           }
         }
       }
+    },
+    '/compliments/send':{
+      get: {
+        summary : "Create a new compliment",
+        description: "Create a new compliment",
+        tags:["Compliments"],
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        responses: {
+        "200": {
+            description: "successful operation",
+            schema: {
+                type: "array",
+                items: {
+                    $ref: "#/definitions/ComplimentSender"
+                }
+            }
+        },
+        "400": {
+            description: "Invalid status value",
+            schema: {
+                $ref: "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    '/compliments/receive':{
+      get: {
+        summary : "Create a new compliment",
+        description: "Create a new compliment",
+        tags:["Compliments"],
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        responses: {
+        "200": {
+            description: "successful operation",
+            schema: {
+                type: "array",
+                items: {
+                    $ref: "#/definitions/ComplimentReceived"
+                }
+            }
+        },
+        "400": {
+            description: "Invalid status value",
+            schema: {
+                $ref: "#/definitions/error"
+            }
+          }
+        }
+      }
     }
   },
   definitions:{
@@ -170,7 +270,19 @@ export default {
         "name": {type: "string"},
         "email": {type: "string"},
         "admin": {type: "boolean"},
-        "password": {type: "string"}
+        "password": {type: "string"},
+        "created_at": {type: "string"},
+        "updated_at": {type: "string"}
+      }
+    },
+    "User":{
+      type: "object",
+      properties:{
+        "name": {type: "string"},
+        "email": {type: "string"},
+        "admin": {type: "boolean"},
+        "created_at": {type: "string"},
+        "updated_at": {type: "string"}
       }
     },
     "newSession":{
@@ -186,6 +298,13 @@ export default {
         "name": {type: "string"},
       }
     },
+    "Tags":{
+      type: "object",
+      properties:{
+        "name": {type: "string"},
+        "created_at": {type: "string"},
+      }
+    },
     "newCompliment":{
       type: "object",
       properties:{
@@ -194,6 +313,22 @@ export default {
         "message": {type: "string"},
       }
     },
+    "ComplimentSender":{
+      type: "object",
+      properties:{
+        "tag_id": {type: "string"},
+        "user_receiver": {type: "string"},
+        "message": {type: "string"},
+      }
+    },
+    "ComplimentReceived":{
+      type: "object",
+      properties:{
+        "tag_id": {type: "string"},
+        "user_sender": {type: "string"},
+        "message": {type: "string"},
+      }
+    },    
     "successNewUser":{
       type: "object",
       properties:{
